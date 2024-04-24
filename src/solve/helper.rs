@@ -1,30 +1,32 @@
-pub struct Fibonacci {
-    pub numbers: Vec<u64>,
+fn get_sieve_of_eratosthenes(limit: u64) -> Vec<u64> {
+    let mut sieve = vec![true; limit as usize + 1];
+    sieve[0] = false;
+    sieve[1] = false;
+
+    for i in 2..=(limit as f64).sqrt() as usize {
+        if sieve[i] {
+            for j in (i * i..=limit as usize).step_by(i) {
+                sieve[j] = false;
+            }
+        }
+    }
+
+    sieve
+        .iter()
+        .enumerate()
+        .filter(|(_, &is_prime)| is_prime)
+        .map(|(i, _)| i as u64)
+        .collect()
 }
 
-impl Fibonacci {
-    pub fn new() -> Self {
-        let mut numbers = Vec::new();
-        numbers.push(1);
-        numbers.push(2);
+pub fn find_prime_factors(number: u64) -> Vec<u64> {
+    let sqrt = (number as f64).sqrt() as u64;
+    let primes = get_sieve_of_eratosthenes(sqrt);
 
-        Fibonacci { numbers }
-    }
+    let factors = primes
+        .into_iter()
+        .filter(|&prime| number % prime == 0)
+        .collect::<Vec<_>>();
 
-    pub fn next(&mut self) -> u64 {
-        let len = self.numbers.len();
-        let next = self.numbers[len - 1] + self.numbers[len - 2];
-
-        next
-    }
-
-    pub fn push(&mut self, n: u64) {
-        self.numbers.push(n);
-    }
-}
-
-pub fn is_even(n: u64) -> bool {
-    let result = n % 2 == 0;
-
-    result
+    factors
 }

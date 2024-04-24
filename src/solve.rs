@@ -1,23 +1,7 @@
 mod helper;
 
-use helper::{is_even, Fibonacci};
+use helper::find_prime_factors;
 
-pub fn solve(below: u32) -> u64 {
-    let mut fibonacci = Fibonacci::new();
-
-    loop {
-        let next = fibonacci.next();
-        if next > below as u64 {
-            break;
-        }
-        fibonacci.push(next);
-    }
-
-    let evens = fibonacci
-        .numbers
-        .into_iter()
-        .filter(|&x| is_even(x))
-        .collect::<Vec<_>>();
-
-    evens.into_iter().sum()
+pub fn solve(number: u64) -> u64 {
+    find_prime_factors(number).pop().unwrap()
 }
