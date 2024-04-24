@@ -3,7 +3,7 @@ mod solve;
 use solve::solve;
 
 fn main() {
-    let answer = solve(100, 999).expect("No answer found");
+    let answer = solve(20);
 
     println!("Answer: {}", answer);
 }
@@ -14,6 +14,6 @@ mod tests {
 
     #[test]
     fn test_solve() {
-        assert_eq!(solve(10, 99), Some(9009));
+        assert_eq!(solve(10), 2520);
     }
 }
