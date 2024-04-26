@@ -1,7 +1,10 @@
 mod helper;
 
-use helper::lcm;
+pub fn solve(to: u32) -> (u32, u32) {
+    let numbers = (1..=to).collect::<Vec<u32>>();
 
-pub fn solve(max: u32) -> u32 {
-    (1..=max).fold(1, |acc, x| lcm(acc, x))
+    let sum_of_squares: u32 = numbers.iter().map(|x| x.pow(2)).sum();
+    let square_of_sum: u32 = numbers.iter().sum::<u32>().pow(2);
+
+    (sum_of_squares, square_of_sum)
 }

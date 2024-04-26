@@ -3,9 +3,11 @@ mod solve;
 use solve::solve;
 
 fn main() {
-    let answer = solve(20);
+    let answer = solve(100);
 
-    println!("Answer: {}", answer);
+    let diff = answer.1 - answer.0;
+
+    println!("Answer: {:?}", diff);
 }
 
 #[cfg(test)]
@@ -14,6 +16,9 @@ mod tests {
 
     #[test]
     fn test_solve() {
-        assert_eq!(solve(10), 2520);
+        let (sum_of_squares, square_of_sum) = solve(10);
+
+        assert_eq!(sum_of_squares, 385);
+        assert_eq!(square_of_sum, 3025);
     }
 }
