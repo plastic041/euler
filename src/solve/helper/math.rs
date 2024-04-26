@@ -50,3 +50,19 @@ pub fn lcm(u: u32, v: u32) -> u32 {
     // Using the formula lcm(u, v) = u * v / gcd(u, v)
     u / gcd(u, v) * v
 }
+
+pub fn is_prime(n: u32) -> bool {
+    // Base cases: 0 and 1 are not prime
+    if n < 2 {
+        return false;
+    }
+
+    // Check if n is divisible by any number from 2 to √n
+    for i in 2..=((n as f64).sqrt() as u32) {
+        if n % i == 0 {
+            return false;
+        }
+    }
+
+    true
+}

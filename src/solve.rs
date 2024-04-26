@@ -1,10 +1,18 @@
 mod helper;
 
-pub fn solve(to: u32) -> (u32, u32) {
-    let numbers = (1..=to).collect::<Vec<u32>>();
+use helper::math::is_prime;
 
-    let sum_of_squares: u32 = numbers.iter().map(|x| x.pow(2)).sum();
-    let square_of_sum: u32 = numbers.iter().sum::<u32>().pow(2);
+pub fn solve(nth: usize) -> u32 {
+    let mut count = 0;
+    let mut i = 2;
 
-    (sum_of_squares, square_of_sum)
+    while count < nth {
+        if is_prime(i) {
+            count += 1;
+        }
+
+        i += 1;
+    }
+
+    i - 1
 }
