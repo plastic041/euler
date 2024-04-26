@@ -1,17 +1,32 @@
 mod helper;
 
-pub fn solve() -> Option<(u32, u32, u32)> {
-    let max: u32 = 1_000;
+fn make_sieve(below: usize) -> Vec<bool> {
+    let mut sieve = vec![true; below];
+    sieve[0] = false;
+    sieve[1] = false;
 
-    for a in 1..=max - 2 {
-        for b in a..=max - 1 {
-            let c = max - a - b;
-            if a * a + b * b == c * c {
-                // return (a, b, c);
-                return Some((a, b, c));
+    for i in 2..(below as f64).sqrt() as usize {
+        if sieve[i] {
+            for j in (i * i..below).step_by(i) {
+                sieve[j] = false;
             }
         }
     }
 
-    None
+    sieve
+}
+
+pub fn solve(below: usize) -> u64 {
+    let sieve = make_sieve(below);
+    let mut sum = 0;
+
+    dbg!(&sieve);
+
+    for i in 0..below {
+        if sieve[i] {
+            sum += i as u64;
+        }
+    }
+
+    sum
 }
