@@ -3,7 +3,7 @@ mod solve;
 use solve::solve;
 
 fn main() {
-    let answer = solve(10_001);
+    let answer = solve(13);
 
     println!("Answer: {:?}", answer);
 }
@@ -14,8 +14,8 @@ mod tests {
 
     #[test]
     fn test_solve() {
-        let answer = solve(6);
+        let answer = solve(4);
 
-        assert_eq!(answer, 13);
+        assert_eq!(answer, 5832);
     }
 }
