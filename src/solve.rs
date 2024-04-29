@@ -1,17 +1,16 @@
 mod helper;
 
-use helper::math::Dividable;
+use num_bigint::BigUint;
 
-pub fn solve(max_divisors: u64) -> u64 {
-    let mut num: u64 = 0;
-    let mut step = 1;
+pub fn solve(numbers_string: String) -> String {
+    let numbers = numbers_string
+        .lines()
+        .map(|line| line.parse::<BigUint>().expect("Failed to parse number"))
+        .collect::<Vec<BigUint>>();
 
-    loop {
-        num += step;
-        step += 1;
+    let sum = numbers.iter().sum::<BigUint>();
 
-        if num.divisors().len() >= max_divisors as usize {
-            return num;
-        }
-    }
+    let sum_string = sum.to_string();
+
+    sum_string.chars().take(10).collect()
 }
