@@ -5,7 +5,7 @@ fn make_sieve(below: usize) -> Vec<bool> {
     sieve[0] = false;
     sieve[1] = false;
 
-    for i in 2..(below as f64).sqrt() as usize {
+    for i in 2..(below as f64).sqrt().ceil() as usize {
         if sieve[i] {
             for j in (i * i..below).step_by(i) {
                 sieve[j] = false;
@@ -19,8 +19,6 @@ fn make_sieve(below: usize) -> Vec<bool> {
 pub fn solve(below: usize) -> u64 {
     let sieve = make_sieve(below);
     let mut sum = 0;
-
-    dbg!(&sieve);
 
     for i in 0..below {
         if sieve[i] {
