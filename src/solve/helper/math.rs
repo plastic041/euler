@@ -67,3 +67,41 @@ pub fn is_prime(n: u32) -> bool {
 
     true
 }
+
+pub fn divisors(n: u64) -> Vec<u64> {
+    let mut divisors = Vec::new();
+
+    // Base case: 1 is a divisor of any number
+    divisors.push(1);
+
+    // Check if n is divisible by any number from 2 to √n
+    for i in 2..=((n as f64).sqrt().ceil() as u64) {
+        if n % i == 0 {
+            divisors.push(i);
+
+            // If i is not the square root of n, add n/i as a divisor
+            if i != n / i {
+                divisors.push(n / i);
+            }
+        }
+    }
+
+    // n is always a divisor of itself
+    divisors.push(n);
+
+    // remove duplicates
+    divisors.sort();
+    divisors.dedup();
+
+    divisors
+}
+
+pub trait Dividable {
+    fn divisors(&self) -> Vec<u64>;
+}
+
+impl Dividable for u64 {
+    fn divisors(&self) -> Vec<u64> {
+        divisors(*self)
+    }
+}
