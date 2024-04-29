@@ -1,16 +1,32 @@
+use std::collections::HashMap;
+
 mod helper;
 
-use num_bigint::BigUint;
+pub fn solve(below: u32) -> u32 {
+    let mut map = HashMap::new();
+    map.insert(1, 1);
 
-pub fn solve(numbers_string: String) -> String {
-    let numbers = numbers_string
-        .lines()
-        .map(|line| line.parse::<BigUint>().expect("Failed to parse number"))
-        .collect::<Vec<BigUint>>();
+    for i in 2..=below {
+        let mut n = i;
+        let mut count = 0;
 
-    let sum = numbers.iter().sum::<BigUint>();
+        loop {
+            if let Some(&v) = map.get(&n) {
+                count += v;
+                break;
+            }
 
-    let sum_string = sum.to_string();
+            if n % 2 == 0 {
+                n /= 2;
+            } else {
+                n = 3 * n + 1;
+            }
 
-    sum_string.chars().take(10).collect()
+            count += 1;
+        }
+
+        map.insert(i, count);
+    }
+
+    map.iter().max_by_key(|&(_, &v)| v).unwrap().0.to_owned()
 }
