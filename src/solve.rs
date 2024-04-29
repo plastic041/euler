@@ -1,32 +1,12 @@
-use std::collections::HashMap;
-
 mod helper;
 
+use num_bigint::BigUint;
+
 pub fn solve(below: u32) -> u32 {
-    let mut map = HashMap::new();
-    map.insert(1, 1);
+    let num = BigUint::from(2u32).pow(below);
 
-    for i in 2..=below {
-        let mut n = i;
-        let mut count = 0;
-
-        loop {
-            if let Some(&v) = map.get(&n) {
-                count += v;
-                break;
-            }
-
-            if n % 2 == 0 {
-                n /= 2;
-            } else {
-                n = 3 * n + 1;
-            }
-
-            count += 1;
-        }
-
-        map.insert(i, count);
-    }
-
-    map.iter().max_by_key(|&(_, &v)| v).unwrap().0.to_owned()
+    num.to_string()
+        .chars()
+        .map(|c| c.to_digit(10).unwrap())
+        .sum()
 }
